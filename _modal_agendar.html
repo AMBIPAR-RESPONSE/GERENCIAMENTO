@@ -1,0 +1,34 @@
+<!-- Modal Agendar Manutenção -->
+<div class="modal fade" id="modalAgendar" tabindex="-1">
+  <div class="modal-dialog">
+    <form class="modal-content" method="POST" action="{{ url_for('agendar_manutencao') }}">
+      <div class="modal-header">
+        <h5 class="modal-title">Agendar Manutenção</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-2">
+          <label class="form-label">Aeronave *</label>
+          <select name="aeronave_id" class="form-select" required>
+            <option value="">Selecione a aeronave...</option>
+            {% for a in Aeronave.query.order_by(Aeronave.matricula).all() %}
+            <option value="{{ a.id }}">{{ a.matricula }} — {{ a.modelo }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Data Agendada *</label>
+          <input type="date" name="data_agendada" class="form-control" required>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Duração (dias) *</label>
+          <input type="number" name="duracao_dias" min="1" class="form-control" placeholder="Ex: 5" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn btn-primary" type="submit">Agendar</button>
+      </div>
+    </form>
+  </div>
+</div>
