@@ -1,0 +1,58 @@
+<!-- Modal Atualizar Situação -->
+<div class="modal fade" id="modalAtualizar" tabindex="-1">
+  <div class="modal-dialog">
+    <form class="modal-content" method="POST" id="formAtualizar" action="">
+      <div class="modal-header">
+        <h5 class="modal-title">Atualizar Situação</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="upd_id" name="id">
+        <div class="mb-2"><label class="form-label">Matrícula</label><input id="upd_matricula" class="form-control" disabled></div>
+
+        <div class="mb-2">
+          <label class="form-label">Situação Atual</label>
+          <div class="d-flex gap-2">
+            <div class="btn-group" role="group">
+              <input type="radio" class="btn-check" name="status_atual" id="st_voando" value="voando" autocomplete="off">
+              <label class="btn btn-outline-primary" for="st_voando">Voando</label>
+
+              <input type="radio" class="btn-check" name="status_atual" id="st_solo" value="solo" autocomplete="off">
+              <label class="btn btn-outline-secondary" for="st_solo">Em Solo</label>
+
+              <input type="radio" class="btn-check" name="status_atual" id="st_hangar" value="hangar" autocomplete="off">
+              <label class="btn btn-outline-secondary" for="st_hangar">No Hangar</label>
+
+              <input type="radio" class="btn-check" name="status_atual" id="st_manut" value="manutencao" autocomplete="off">
+              <label class="btn btn-outline-secondary" for="st_manut">Em Manutenção</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-2"><label class="form-label">Localização Atual</label><input id="upd_localizacao" name="localizacao_atual" class="form-control"></div>
+        <div class="row g-2">
+          <div class="col-md-6"><label class="form-label">Comandante</label><input id="upd_comandante" name="comandante" class="form-control"></div>
+          <div class="col-md-6"><label class="form-label">Copiloto</label><input id="upd_copiloto" name="copiloto" class="form-control"></div>
+        </div>
+        <div class="mb-2 mt-2"><label class="form-label">Mecânico Responsável</label><input id="upd_mecanico" name="mecanico" class="form-control"></div>
+        <div class="mb-2"><label class="form-label">Missão</label><textarea id="upd_missao" name="missao" class="form-control"></textarea></div>
+      </div>
+      <div class="modal-footer">
+        <form method="POST" id="frmExcluir" action="">
+          <!-- exclui via rota /aeronave/<id>/excluir -->
+        </form>
+        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn btn-primary" type="submit" onclick="submitAtualizar()">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Submete o form de atualizar para a rota correta
+  function submitAtualizar(){
+    const id = document.getElementById('upd_id').value;
+    const form = document.getElementById('formAtualizar');
+    form.action = '/aeronave/' + id + '/atualizar';
+  }
+</script>
