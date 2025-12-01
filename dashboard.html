@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h2>Gestão de Frota</h2>
+    <div class="small-muted">Visão geral das suas aeronaves</div>
+  </div>
+  <div>
+    <a class="btn btn-primary" onclick="openModalById('modalNova')">+ Nova Aeronave</a>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <div class="card p-3">
+      <div class="small-muted">Total de Aeronaves</div>
+      <h3>{{ total }}</h3>
+      <div class="small-muted">operacionais</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card p-3">
+      <div class="small-muted">Em Manutenção</div>
+      <h3>{{ em_manutencao }}</h3>
+      <div class="small-muted">Aeronaves paradas</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card p-3">
+      <div class="small-muted">Voando Agora</div>
+      <h3>{{ voando }}</h3>
+      <div class="small-muted">Aeronaves em voo</div>
+    </div>
+  </div>
+</div>
+
+<h5 class="mb-2">Aeronaves em Manutenção</h5>
+<div class="row g-3 mb-4">
+  {% for a in manut_cards %}
+  <div class="col-md-4">
+    <div class="p-3 card card-status-manutencao">
+      <div class="d-flex justify-content-between">
+        <div><strong>{{ a.matricula }}</strong><div class="small-muted">{{ a.fabricante }} {{ a.modelo }}</div></div>
+        <div><span class="badge-programada">Programada</span></div>
+      </div>
+      <div class="small-muted mt-2">Local: {{ a.base_operacional or '—' }}</div>
+    </div>
+  </div>
+  {% else %}
+  <div class="col-12"><small class="text-muted">Nenhuma aeronave em manutenção</small></div>
+  {% endfor %}
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <h5>Aeronaves</h5>
+    <div class="row">
+      {% for a in manut_cards %}
+        <div class="col-md-6 aero-card">
+          {% include "_aeronave_card.html" %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <h5>Próximas Manutenções</h5>
+    <ul class="list-group">
+      {% for m in proximas %}
+      <li class="list-group-item">
+        <strong>{{ m.aeronave.matricula }}</strong><br/>
+        <small class="text-muted">{{ m.data_agendada.strftime('%d %b %Y') }} · {{ m.duracao_dias }} dias</small>
+      </li>
+      {% else %}
+      <li class="list-group-item small-muted">Nenhuma</li>
+      {% endfor %}
+    </ul>
+    <div class="mt-3">
+      <button class="btn btn-outline-primary btn-sm" onclick="openModalById('modalAgendar')">+ Agendar</button>
+    </div>
+  </div>
+</div>
+
+<!-- includes dos modais -->
+{% include "_modal_nova_aeronave.html" %}
+{% include "_modal_atualizar.html" %}
+{% include "_modal_agendar.html" %}
+{% endblock %}
