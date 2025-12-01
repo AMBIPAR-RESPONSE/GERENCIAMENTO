@@ -1,0 +1,26 @@
+<!-- Modal Nova Aeronave -->
+<div class="modal fade" id="modalNova" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <form class="modal-content" method="POST" action="{{ url_for('nova_aeronave') }}">
+      <div class="modal-header">
+        <h5 class="modal-title">Nova Aeronave</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-2">
+          <div class="col-md-6"><label class="form-label">Matrícula *</label><input name="matricula" class="form-control" required></div>
+          <div class="col-md-6"><label class="form-label">Número de Série</label><input name="numero_serie" class="form-control"></div>
+          <div class="col-md-6"><label class="form-label">Fabricante *</label><input name="fabricante" class="form-control" required></div>
+          <div class="col-md-6"><label class="form-label">Modelo *</label><input name="modelo" class="form-control" required></div>
+          <div class="col-md-6"><label class="form-label">Categoria</label><input name="categoria" class="form-control"></div>
+          <div class="col-md-6"><label class="form-label">Base Operacional</label><input name="base_operacional" class="form-control"></div>
+          <div class="col-12"><label class="form-label">Observações</label><textarea name="observacoes" rows="3" class="form-control"></textarea></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn btn-primary" type="submit">Cadastrar</button>
+      </div>
+    </form>
+  </div>
+</div>
